@@ -1,25 +1,33 @@
-// Fonction pour demander à l'utilisateur de remplir un tableau
-function remplirTableau(nomTableau) {
-    let tableau = [];
-    for (let i = 0; i < 5; i++) {
-        let valeur = prompt(`Veuillez entrer la valeur ${i + 1} pour ${nomTableau}:`);
-        tableau.push(valeur);
-    }
-    return tableau;
-}
+        // Fonction pour demander à l'utilisateur de remplir un tableau
+        function remplirTableau(nomTableau) {
+            let tableau = [];
+            for (let i = 0; i < 5; i++) {
+                let valeur = prompt(`Veuillez entrer la valeur ${i + 1} pour ${nomTableau}:`);
+                tableau.push(valeur);
+            }
+            return tableau;
+        }
 
-// Remplir les tableaux tab1 et tab2
-let tab1 = remplirTableau("tab1");
-let tab2 = remplirTableau("tab2");
+        // Fonction pour afficher les résultats dans le navigateur
+        function afficherResultats(tab1, tab2, tab3, tab4) {
+            const resultatsDiv = document.getElementById('resultats');
+            resultatsDiv.innerHTML = `
+                <p><strong>tab1 :</strong> ${tab1.join(', ')}</p>
+                <p><strong>tab2 :</strong> ${tab2.join(', ')}</p>
+                <p><strong>tab3 :</strong> ${tab3.join(', ')}</p>
+                <p><strong>tab4 :</strong> ${tab4.join(', ')}</p>
+            `;
+        }
 
-// Créer tab3 avec les éléments de tab1 qui ne se trouvent pas dans tab2
-let tab3 = tab1.filter(element => !tab2.includes(element));
+        // Événement pour remplir les tableaux et afficher les résultats
+        document.getElementById('demanderValeurs').addEventListener('click', () => {
+            let tab1 = remplirTableau("tab1");
+            let tab2 = remplirTableau("tab2");
 
-// Créer tab4 avec les éléments de tab1 qui se trouvent dans tab2
-let tab4 = tab1.filter(element => tab2.includes(element));
+            // Créer tab3 et tab4
+            let tab3 = tab1.filter(element => !tab2.includes(element));
+            let tab4 = tab1.filter(element => tab2.includes(element));
 
-// Afficher les résultats
-console.log("tab1:", tab1);
-console.log("tab2:", tab2);
-console.log("tab3 (éléments de tab1 qui ne sont pas dans tab2):", tab3);
-console.log("tab4 (éléments de tab1 qui sont dans tab2):", tab4);
+            // Afficher les résultats
+            afficherResultats(tab1, tab2, tab3, tab4);
+        });
